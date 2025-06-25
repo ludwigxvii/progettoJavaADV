@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="baseschermata" prefHeight="800.0" prefWidth="1280.0" stylesheets="@stile_gioco.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wordageddon.Quiz_1Controller">
+   <children>
+      <Label fx:id="testoDomanda" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="218.0" prefHeight="97.0" prefWidth="1181.0" style="-fx-font-size: 64;" text="Quale parola appare di più?" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <Button fx:id="labelDomande" layoutX="524.0" layoutY="45.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="97.0" prefWidth="232.0" style="-fx-font-size: 64px;" text="0/N" />
+      <Button fx:id="inviaDomanda" layoutX="525.0" layoutY="629.0" mnemonicParsing="false" onAction="#azioneInvio" prefHeight="109.0" prefWidth="232.0" style="-fx-font-size: 54px;" text="Invia" />
+      <Label fx:id="tempo" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="529.0" prefHeight="81.0" prefWidth="174.0" style="-fx-font-size: 64;" text="00" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
+      <ToggleButton fx:id="bottoneRisposta1" layoutX="139.0" layoutY="400.0" mnemonicParsing="false" onAction="#selezione1" prefHeight="97.0" prefWidth="365.0" style="-fx-font-size: 50px;" text="Risposta1" />
+      <ToggleButton fx:id="bottoneRisposta2" layoutX="783.0" layoutY="400.0" mnemonicParsing="false" onAction="#selezione2" prefHeight="97.0" prefWidth="365.0" style="-fx-font-size: 50px;" text="Risposta2" />
+   </children>
+</AnchorPane>

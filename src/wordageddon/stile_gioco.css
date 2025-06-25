@@ -1,0 +1,236 @@
+@font-face {
+    font-family:'Augusta';
+    src: url('fonts/Augusta.ttf');
+}
+#baseschermata{
+    -fx-background-color:rgb(197, 147, 255);
+    -fx-font-family:'Augusta';
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgb(129, 20, 255), 7, 0.5, 0.0, 0.0);
+}
+.toggle-button{
+    -fx-padding: 0 0 0 0;
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-background-color: rgb(129, 20, 255);
+    -fx-effect: dropshadow(gaussian, rgb(83, 0, 177), 1,5, 0, 5);
+}
+.toggle-button:selected{-fx-background-color: rgb(146, 51, 255);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-effect: dropshadow(gaussian, rgba(83, 0, 177, 0.518), 1,5, 0, 5);}
+.button{
+    -fx-padding: 0 0 0 0;
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-background-color: rgb(129, 20, 255);
+    
+}
+.button {-fx-effect: dropshadow(gaussian, rgb(83, 0, 177), 1,5, 0, 5);}
+.button:hover{
+    -fx-cursor:hand;
+    -fx-background-color: rgb(137, 34, 254);
+}
+.button:pressed{
+    -fx-background-color: rgb(146, 51, 255);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-effect: dropshadow(gaussian, rgba(83, 0, 177, 0.518), 1,5, 0, 5);
+    
+}
+.tab-pane > .pane{
+    -fx-border-style: none;
+
+}
+.tab-pane:focused > .tab-header-area{
+    -fx-border-style: none;
+
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-size:120%;
+    -fx-background-color:  rgb(158, 74, 255);
+    -fx-border-style: none;
+    
+    
+}
+.tab-pane > .tab-header-area > .headers-region > .tab >.tab-label:selected {
+-fx-text-fill: white;
+    
+}
+.anchor-pane{
+    -fx-background-radius:20px 20px 0px 0px;
+}
+.tab-pane{
+  -fx-tab-min-width:280px;
+  -fx-tab-max-width:280px;
+  -fx-tab-min-height:80px;
+  -fx-tab-max-height:80px;
+}
+.tab-pane:focused > .tab-header-area > .headers-region{
+    -fx-border-style: none;
+   
+
+}
+.tab{
+    -fx-focus-color:none;
+    -fx-background-insets: 5 10 0 10,0,0;
+    -fx-background-radius:20px 20px 0px 0px;
+   -fx-padding: 10 10 10 10;
+    -fx-background-color: rgb(173, 101, 255);
+    
+    
+}
+.tab .tab-label{
+    -fx-alignment: center;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-effect: dropshadow(gaussian, rgb(83, 0, 177), 1,5, 0, 5);
+    -fx-background-color:rgba(255, 242, 230, 0);
+    -fx-cursor:hand;
+    -fx-font-size: 65px;
+    
+}
+.tool-bar{
+        -fx-effect: dropshadow(gaussian, rgba(130, 20, 255, 0.456), 7, 0.5, 0.0, 0.0);
+
+    -fx-background-radius:37px;
+    -fx-background-color:rgb(197, 147, 255);
+}
+.tool-bar > .button{
+    -fx-margin: 10px;
+    -fx-start-margin: 30px;
+}
+.tab-header-background{
+    -fx-background-color: rgb(197, 147, 255);
+    
+}
+
+.image-view{
+    -fx-background-radius: 50px;
+}
+.label{-fx-effect: dropshadow(gaussian, rgb(83, 0, 177), 1,5, 0, 5);}
+
+.table-view{
+   -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: rgb(173, 101, 255);
+    -fx-background-radius: 30px;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    
+}
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 45px;
+    -fx-padding:10;
+}
+.text-area .content{
+    -fx-control-inner-background: rgb(187, 128, 255);
+ -fx-background-radius: 20 20 20 20;
+ 
+}
+
+.text-area{
+    -fx-background-color: rgb(187, 128, 255);
+-fx-focus-color: transparent;
+-fx-border-style:none;
+-fx-background-radius: 20 20 20 20;
+
+
+
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+     -fx-background-radius: 20 20 20 20;
+}
+.text-area > .scroll-pane > .scroll-bar:horizontal {
+      -fx-background-color: rgb(187, 128, 255);
+    -fx-background-radius: 20 20 20 20;
+}
+.text-area > .scroll-pane {
+    -fx-background-color: rgb(187, 128, 255);
+    -fx-background-radius: 20 20 20 20;
+}
+.text-area > .scroll-pane > .scroll-bar:vertical {
+    -fx-background-radius: 20 20 20 20;
+    -fx-background-color: rgba(146, 50, 255, 0.456);
+}
+.text-area > .scroll-pane > .corner {
+   -fx-background-radius: 20 20 20 20;
+    -fx-background-color:rgb(187, 128, 255);
+
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+    
+}
+
+.text-area > .scroll-pane > .scroll-bar:vertical .increment-arrow
+{
+visibility: collapse;
+    
+}
+
+.text-area > .scroll-pane > .scroll-bar:vertical .decrement-arrow
+{
+visibility: collapse;
+}
+.text-area > .scroll-pane > .scroll-bar:vertical .thumb {
+    -fx-background-color:rgb(187, 128, 255);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+.text-field{
+    
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-background-color: rgb(129, 20, 255);
+  -fx-focus-color:none;
+  -fx-prompt-text-fill:rgb(187, 128, 255);
+  -fx-effect: dropshadow(gaussian, rgb(83, 0, 177), 1,5, 0, 5);
+  
+}
+
+.table-view .table-cell{
+    -fx-alignment: center;
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    outline: none;
+    -fx-border-color:rgb(158, 74, 255);
+    -fx-border-width: 3px;
+    -fx-background-insets: 0, 0 0 0 0;
+}
+
+.table-row-cell{
+    
+    -fx-background-color:  transparent;
+    
+    -fx-border-color:rgb(158, 74, 255);
+    -fx-border-width: 3px;
+    -fx-background-insets: 0, 0 0 0 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background, 
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+.table-view > .virtual-flow > .scroll-bar > .increment-button, 
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}

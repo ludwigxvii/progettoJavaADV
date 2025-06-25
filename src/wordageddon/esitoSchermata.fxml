@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="baseschermata" prefHeight="800.0" prefWidth="1280.0" stylesheets="@stile_gioco.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wordageddon.esitoController">
+   <children>
+      <Label fx:id="testoDomanda" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="14.0" prefHeight="97.0" prefWidth="1181.0" style="-fx-font-size: 64;" text="Risultato della Partita" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <Button fx:id="terminaPartita" layoutX="524.0" layoutY="693.0" mnemonicParsing="false" onAction="#azioneInvio" prefHeight="80.0" prefWidth="232.0" style="-fx-font-size: 54px;" text="Termina" />
+      <TableView fx:id="tabellaRisultati" layoutX="26.0" layoutY="116.0" prefHeight="550.0" prefWidth="1227.0">
+        <columns>
+          <TableColumn fx:id="numeroDomanda" prefWidth="78.0" text="N" />
+          <TableColumn fx:id="tipoDomanda" prefWidth="229.0" text="Domanda" />
+            <TableColumn fx:id="rispostaData" minWidth="0.0" prefWidth="333.0" text="Risposta data" />
+            <TableColumn fx:id="rispostaEsatta" minWidth="0.0" prefWidth="308.0" text="Risposta esatta" />
+            <TableColumn fx:id="score" minWidth="0.0" prefWidth="278.0" text="Punteggio" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

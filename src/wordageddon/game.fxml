@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="baseschermata" prefHeight="800.0" prefWidth="1280.0" stylesheets="@stile_gioco.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wordageddon.GameController">
+   <children>
+      <TextArea fx:id="zonaTesto" layoutX="125.0" layoutY="122.0" prefHeight="557.0" prefWidth="1030.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id est lorem. Suspendisse potenti. Sed at odio nec felis ornare accumsan. Nulla cursus, lacus non ultrices dapibus, velit mi vestibulum nunc, et lacinia metus odio sit amet justo. Nunc eu odio elementum, molestie ligula ut, dictum augue. Mauris ut ante placerat, ornare eros ut, euismod metus. Cras finibus hendrerit dignissim. Mauris fringilla dui nisi, in efficitur dolor vestibulum vitae. Aenean venenatis et justo vitae feugiat. Sed vel dui nisl.&#10;&#10;Cras vel massa vel libero viverra viverra. Morbi porta nulla sit amet erat sollicitudin fermentum. Etiam et libero sed magna dictum sollicitudin ac sed dui. Donec accumsan turpis in velit facilisis, et dignissim nibh imperdiet. Phasellus et tellus id velit vestibulum congue. Phasellus faucibus arcu pellentesque augue tristique dapibus. Praesent imperdiet ullamcorper eleifend. Etiam sit amet pretium purus, quis interdum enim. Nunc quis libero non sem laoreet convallis mollis sed nulla. Integer elit velit, varius a porttitor eu, semper id risus. Fusce venenatis nisi ornare ultrices dapibus. Nullam porttitor purus quis elit interdum, eget bibendum nulla ullamcorper. Sed sit amet erat fermentum, pulvinar erat in, facilisis orci. In scelerisque dui at sodales consequat.&#10;&#10;Nullam suscipit arcu id dolor rutrum, a ornare tellus posuere. Sed viverra tortor odio, sed mattis nisl facilisis at. Morbi elementum, nisl vitae pretium varius, magna mi bibendum dui, ut iaculis massa odio vitae neque. Donec consectetur imperdiet erat, ullamcorper pharetra nibh rhoncus eu. Etiam elit nulla, condimentum et viverra id, feugiat porta dui. Nunc luctus id libero eu lacinia. Cras lacinia, mi ut fermentum aliquet, libero enim posuere eros, malesuada condimentum arcu libero vitae erat.&#10;&#10;Nunc tempus quam sit amet nibh sodales, nec ornare nisi efficitur. Aenean vel congue risus, sed pretium justo. Curabitur vitae eros vel ipsum finibus rutrum. Pellentesque vel turpis quam. Duis ut diam felis. Aenean sed purus quam. Pellentesque ultricies eget lacus ultricies faucibus. Donec tempus aliquam augue, at euismod leo fringilla et.&#10;&#10;Quisque sit amet velit non enim semper pellentesque. Aenean diam urna, mollis quis mi a, luctus molestie nulla. Suspendisse imperdiet tincidunt ipsum, sed finibus ipsum eleifend in. Vestibulum consectetur maximus ipsum in cursus. Sed nec quam sit amet ipsum hendrerit tincidunt ut vel augue. Morbi id lectus nec ligula facilisis euismod ac non ipsum. Morbi placerat augue est, a maximus quam placerat maximus. Vivamus in elementum quam, in feugiat velit." wrapText="true" AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="122.0">
+         <font>
+            <Font name="Augusta Regular" size="43.0" />
+         </font>
+      </TextArea>
+      <Label fx:id="textName" alignment="CENTER" contentDisplay="CENTER" layoutX="323.0" layoutY="14.0" prefHeight="103.0" prefWidth="635.0" style="-fx-font-size: 64px;" text="Nome del Testo" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="63.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="323.0" layoutY="679.0" prefHeight="103.0" prefWidth="315.0" style="-fx-font-size: 64px;" text="Tempo" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="63.0" />
+         </font>
+      </Label>
+      <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="641.0" layoutY="679.0" prefHeight="103.0" prefWidth="315.0" style="-fx-font-size: 64px;" text="0:00" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="63.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
