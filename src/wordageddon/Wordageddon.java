@@ -18,14 +18,13 @@ public class Wordageddon extends Application {
     private static Scene scene;
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
          Parent root = (Parent) loader.load();
-         //QuizController ctrl = loader.getController();
-         LoginController ctrl = loader.getController();
+         FXMLDocumentController ctrl = loader.getController();
         
         scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setLogin(stage,scene);
+                 ctrl.setStart(stage,scene);
         stage.show();
     }
 

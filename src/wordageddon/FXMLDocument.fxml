@@ -20,5 +20,21 @@
          <font>
             <Font size="55.0" />
          </font></Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="602.0" lineSpacing="4.0" onMouseClicked="#registerAction" prefHeight="52.0" prefWidth="129.0" style="-fx-font-size: 30px;" text="Registrati " textFill="#ebccff">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="520.0" layoutY="602.0" lineSpacing="4.0" prefHeight="52.0" prefWidth="121.0" style="-fx-font-size: 30px;" text="Oppure" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -4,20 +4,26 @@
  */
 package wordageddon;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -25,7 +31,8 @@ import javafx.scene.control.TextField;
  * @author ludwi
  */
 public class RegisterController implements Initializable {
-
+    private Stage stage;
+    private Scene scene;
     @FXML
     private Label testoRegistrazione;
     @FXML
@@ -87,10 +94,51 @@ public class RegisterController implements Initializable {
             stmt.setString(3, testoMail.getText());
             stmt.execute();
             stmt.close();
+        
+        try {
+            Connection connessione2 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
+            PreparedStatement stmt2 = connessione2.prepareStatement("SELECT * FROM public.wordageddonusers WHERE username = ? AND password = ?;");
+            stmt2.setString(1, testoUsername.getText());
+            stmt2.setString(2, testoPass.getText());
+            Boolean positive = stmt2.execute();
+             ResultSet result;
+             if(positive){
+             result=stmt2.getResultSet();
+             result.next();
+             
+             
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+         Parent root;
+            try {
+                root = (Parent) loader.load();
+                //QuizController ctrl = loader.getController();
+         MenuController ctrl = loader.getController();
+       
+         ctrl.setUser(stage,scene,result.getString("username"),result.getString("email"),result.getInt("totalscore"),result.getInt("lastscore"));
+        scene = new Scene(root);
+                 stage.setScene(scene);
+                 
+        stmt.close();
+                 stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
+             }
+            
+            
+            
+        } catch (SQLException ex) {
+            System.err.println("Errore Registrazione");
+            //Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         } catch (SQLException ex) {
             System.err.println("Errore Scrittura");
             testoRegistrazione.setText("Username esistente!");
         }
     }
-    
+    public void setReg(Stage stage,Scene scene){
+    this.scene=scene;
+    this.stage=stage;
+    }
 }
