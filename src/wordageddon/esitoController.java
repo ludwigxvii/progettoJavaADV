@@ -5,7 +5,10 @@
 package wordageddon;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.Question;
 
 /**
  * FXML Controller class
@@ -26,7 +31,7 @@ public class esitoController implements Initializable {
     @FXML
     private Button terminaPartita;
     @FXML
-    private TableView<?> tabellaRisultati;
+    private TableView<Question> tabellaRisultati;
     @FXML
     private TableColumn<?, ?> numeroDomanda;
     @FXML
@@ -43,9 +48,17 @@ public class esitoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        tipoDomanda.setCellValueFactory(new PropertyValueFactory("text"));
+        rispostaData.setCellValueFactory(new PropertyValueFactory("givenValue"));
+        rispostaEsatta.setCellValueFactory(new PropertyValueFactory("correctValue"));
+        score.setCellValueFactory(new PropertyValueFactory("givenValue"));
     }    
-
+    public void setRisultati(List<Question> listadomande){
+        ObservableList<Question> tab = FXCollections.observableArrayList();
+        tab.addAll(listadomande);
+    tabellaRisultati.setItems(tab);
+    
+    }
     @FXML
     private void azioneInvio(ActionEvent event) {
     }

@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +34,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Question;
+import service.DocumentAnalyzer;
+import service.QuestionGenerator;
 import wordageddon.classi.*;
 
 /**
@@ -82,36 +87,36 @@ public class MenuController implements Initializable {
         playButton.disableProperty().bind(buttons);
         
         this.listaClassifica=FXCollections.observableArrayList();
+        /*try {
         try {
-        try {
-            Class.forName("org.postgresql.Driver");
+        Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException ex) {
-            System.err.println("Errore Driver");
+        System.err.println("Errore Driver");
         }
-            Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
-             
-            try (PreparedStatement stmt = connessione.prepareStatement("SELECT * FROM public.wordageddonusers ORDER BY totalscore DESC")) {
-                Boolean positive = stmt.execute();
-                ResultSet result = stmt.getResultSet();
-                if(positive){
-                    
-                    while(result.next()){
-                        this.listaClassifica.add(new User(result.getString("username"),result.getString("email"),
-                                result.getInt("totalscore"),result.getInt("lastscore")));
-                        //this.mappaUsers.put(result.getString("username"),result.getInt("totalscore"));
-                        
-                    }
-                    this.listaClassifica.stream().forEach(s->System.out.println(s));
-                    userColumn.setCellValueFactory(new PropertyValueFactory("nome"));
-                    scoreColumn.setCellValueFactory(new PropertyValueFactory("totalscore"));
-                    tabellaClassifica.setItems(this.listaClassifica);
-                }
-            }
-         
-
-         } catch (SQLException ex) {
+        Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
+        
+        try (PreparedStatement stmt = connessione.prepareStatement("SELECT * FROM public.wordageddonusers ORDER BY totalscore DESC")) {
+        Boolean positive = stmt.execute();
+        ResultSet result = stmt.getResultSet();
+        if(positive){
+        
+        while(result.next()){
+        this.listaClassifica.add(new User(result.getString("username"),result.getString("email"),
+        result.getInt("totalscore"),result.getInt("lastscore")));
+        //this.mappaUsers.put(result.getString("username"),result.getInt("totalscore"));
+        
+        }
+        this.listaClassifica.stream().forEach(s->System.out.println(s));
+        userColumn.setCellValueFactory(new PropertyValueFactory("nome"));
+        scoreColumn.setCellValueFactory(new PropertyValueFactory("totalscore"));
+        tabellaClassifica.setItems(this.listaClassifica);
+        }
+        }
+        
+        
+        } catch (SQLException ex) {
         Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        }*/
         
     }    
     public void setUser(Stage stage,Scene scene,String username,String email,int totalscore,int lastscore){
@@ -158,6 +163,13 @@ public class MenuController implements Initializable {
 
     @FXML
     private void iniziaPartita(ActionEvent event) {
+        ArrayList<String> testi=new ArrayList<>();
+        testi.add("ita1.txt");
+        DocumentAnalyzer analyzer = new DocumentAnalyzer(testi,"ITALIANO");
+        QuestionGenerator generator = new QuestionGenerator(analyzer);
+        //analyzer.getGlobalFrequencies().entrySet().forEach((s)->System.out.println("keyset: "+s+"\n"));
+        List<Question> generatedQuestions = generator.generateQuestions(10);
+        
         System.out.println("Difficoltà: "+this.diffState+" Lingua: "+this.lState+"\n"+this.utenteAttuale.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
          Parent root;
@@ -166,7 +178,7 @@ public class MenuController implements Initializable {
             GameController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setUser(stage,scene,this.utenteAttuale);
+                 ctrl.setUser(stage,scene,this.utenteAttuale,analyzer,generatedQuestions,testi);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);

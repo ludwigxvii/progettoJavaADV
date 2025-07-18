@@ -6,6 +6,7 @@ package wordageddon;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +21,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Question;
+import service.DocumentAnalyzer;
 
 /**
  * FXML Controller class
@@ -33,6 +37,9 @@ public class QuizController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Timeline timeline;
+    List<Question> domande;
+    DocumentAnalyzer analyzer;
+    private int risposta_data;
     private int numeroDomanda;
     private String tipoDomanda;
     @FXML
@@ -41,24 +48,30 @@ public class QuizController implements Initializable {
     private Button labelDomande;
     @FXML
     private Label tempo;
-    @FXML
     private TextField testoRisposta;
     @FXML
     private Button inviaDomanda;
-    @FXML
     private Label parolaDomanda;
+    @FXML
+    private RadioButton option1;
+    @FXML
+    private RadioButton option3;
+    @FXML
+    private RadioButton option2;
+    @FXML
+    private RadioButton option4;
+    @FXML
+    private Button exitButton;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        testoRisposta.textProperty().addListener((observable, oldValue, newValue) -> {
-        if (!newValue.matches("\\d*")) {
-            testoRisposta.setText(newValue.replaceAll("[^\\d]", ""));
-        }
-    });
-        inviaDomanda.disableProperty().bind(testoRisposta.textProperty().isEmpty());
+     
+        inviaDomanda.disableProperty().bind((option1.selectedProperty().or(option2.selectedProperty())
+        .or(option3.selectedProperty()).or(option4.selectedProperty())).not());
+        
         long startTime = System.currentTimeMillis();
         this.timeline =
                 
@@ -84,29 +97,33 @@ public class QuizController implements Initializable {
     @FXML
     private void azioneInvio(ActionEvent event) {
         if(this.numeroDomanda==10){
-        System.out.println("Invio "+this.testoRisposta.getText());
+        
 FXMLLoader loader = new FXMLLoader(getClass().getResource("esitoSchermata.fxml"));
          Parent root;
         try {
             root = (Parent) loader.load();
-            //QuizController ctrl = loader.getController();
+            esitoController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
+                 ctrl.setRisultati(domande);
                  //ctrl.setDomanda(this.numeroDomanda,"Tipo1","Pesce",stage,scene);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
         }
     } else {
-System.out.println("Invio "+this.testoRisposta.getText());
+            this.domande.get(numeroDomanda-1).setGivenIndex(this.risposta_data);
+        System.out.println(this.domande.get(numeroDomanda-1).toString());
+//System.out.println("Invio "+this.testoRisposta.getText());
 FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz.fxml"));
+this.timeline.stop();
          Parent root;
         try {
             root = (Parent) loader.load();
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.numeroDomanda,"Tipo1","Pesce",stage,scene);
+                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.analyzer,this.domande);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,14 +131,57 @@ FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz.fxml"));
     }
     }
    
-    public void setDomanda(int numero,String tipoDomanda,String parola,Stage stage,Scene scene){
+    public void setDomanda(int numero,Stage stage,Scene scene,DocumentAnalyzer analyzer,List<Question> questions){
         this.tempo.setText("60");
         this.scene=scene;
         this.stage=stage;
+        this.testoDomanda.setText(questions.get(numero).getText());
+        this.option1.setText(questions.get(numero).getOptions().get(0));
+        this.option2.setText(questions.get(numero).getOptions().get(1));
+        this.option3.setText(questions.get(numero).getOptions().get(2));
+        this.option4.setText(questions.get(numero).getOptions().get(3));
         this.numeroDomanda=numero+1;
         this.tipoDomanda=tipoDomanda;
         this.labelDomande.setText(this.numeroDomanda+"/10");
-        this.parolaDomanda.setText(parola);
+        this.domande=questions;
+        this.analyzer=analyzer;
+        //this.parolaDomanda.setText(parola);
 }
+
+    @FXML
+    private void select1(ActionEvent event) {
+        option2.setSelected(false);
+        option3.setSelected(false);
+        option4.setSelected(false);
+        risposta_data=0;
+    }
+
+    @FXML
+    private void select3(ActionEvent event) {
+        option1.setSelected(false);
+        option2.setSelected(false);
+        option4.setSelected(false);
+        risposta_data=1;
+    }
+
+    @FXML
+    private void select2(ActionEvent event) {
+        option3.setSelected(false);
+        option1.setSelected(false);
+        option4.setSelected(false);
+        risposta_data=2;
+    }
+
+    @FXML
+    private void select4(ActionEvent event) {
+        option2.setSelected(false);
+        option3.setSelected(false);
+        option1.setSelected(false);
+        risposta_data=3;
+    }
+
+    @FXML
+    private void azioneUscita(ActionEvent event) {
+    }
 }
 

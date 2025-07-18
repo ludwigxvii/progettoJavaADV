@@ -56,49 +56,69 @@ public class LoginController implements Initializable {
 
     @FXML
     private void azioneInvio(ActionEvent event) {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException ex) {
-            System.err.println("Errore Driver");
-        }
-        try {
-            Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
-            PreparedStatement stmt = connessione.prepareStatement("SELECT * FROM public.wordageddonusers WHERE username = ? AND password = ?;");
-            stmt.setString(1, testoUsername.getText());
-            stmt.setString(2, testoPass.getText());
-            Boolean positive = stmt.execute();
-             ResultSet result;
-             if(positive){
-             result=stmt.getResultSet();
-             result.next();
-             
-             
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
          Parent root;
             try {
                 root = (Parent) loader.load();
                 //QuizController ctrl = loader.getController();
          MenuController ctrl = loader.getController();
        
-         ctrl.setUser(stage,scene,result.getString("username"),result.getString("email"),result.getInt("totalscore"),result.getInt("lastscore"));
+         ctrl.setUser(stage,scene,"username","email",0,0);
         scene = new Scene(root);
                  stage.setScene(scene);
-                 
-        stmt.close();
+                 //ricorda di levare l'annotazione da qui sotto
+        //stmt.close();
                  stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
-       
-             }
-            
-            
-            
-        } catch (SQLException ex) {
-            System.err.println("Errore Login");
-            //Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            testoDomanda.setText("Username Inesistente!");
+        
+        
+        /*try {
+        Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) {
+        System.err.println("Errore Driver");
         }
+        try {
+        Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
+        PreparedStatement stmt = connessione.prepareStatement("SELECT * FROM public.wordageddonusers WHERE username = ? AND password = ?;");
+        stmt.setString(1, testoUsername.getText());
+        stmt.setString(2, testoPass.getText());
+        Boolean positive = stmt.execute();
+        ResultSet result;
+        if(positive){
+        result=stmt.getResultSet();
+        result.next();
+        
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        Parent root;
+        try {
+        root = (Parent) loader.load();
+        //QuizController ctrl = loader.getController();
+        MenuController ctrl = loader.getController();
+        
+        ctrl.setUser(stage,scene,result.getString("username"),result.getString("email"),result.getInt("totalscore"),result.getInt("lastscore"));
+        scene = new Scene(root);
+        stage.setScene(scene);
+        
+        stmt.close();
+        stage.show();
+        } catch (IOException ex) {
+        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        }
+        
+        
+        
+        } catch (SQLException ex) {
+        System.err.println("Errore Login");
+        //Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        testoDomanda.setText("Username Inesistente!");
+        }*/
     }
     
     public void setLogin(Stage stage,Scene scene){ 

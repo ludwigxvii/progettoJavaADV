@@ -10,10 +10,13 @@
 <AnchorPane id="baseschermata" prefHeight="800.0" prefWidth="1280.0" stylesheets="@stile_gioco.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wordageddon.QuizController">
    <children>
       <Label fx:id="testoDomanda" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="176.0" prefHeight="97.0" prefWidth="1181.0" style="-fx-font-size: 64;" text="Quante Volte appare la Parola" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-      <TextField fx:id="testoRisposta" alignment="CENTER" layoutX="524.0" layoutY="400.0" prefHeight="97.0" prefWidth="232.0" promptText="Risposta" style="-fx-background-radius: 30px; -fx-font-size: 50px;" />
       <Button fx:id="labelDomande" layoutX="524.0" layoutY="45.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="97.0" prefWidth="232.0" style="-fx-font-size: 64px;" text="0/N" />
       <Button fx:id="inviaDomanda" layoutX="525.0" layoutY="629.0" mnemonicParsing="false" onAction="#azioneInvio" prefHeight="109.0" prefWidth="232.0" style="-fx-font-size: 54px;" text="Invia" />
       <Label fx:id="tempo" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="529.0" prefHeight="81.0" prefWidth="174.0" style="-fx-font-size: 64;" text="00" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
-      <Label fx:id="parolaDomanda" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="273.0" prefHeight="97.0" prefWidth="1181.0" style="-fx-font-size: 64;" styleClass="parola" text="Parola" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
+      <RadioButton fx:id="option1" layoutX="263.0" layoutY="290.0" mnemonicParsing="false" onAction="#select1" prefHeight="30.0" prefWidth="252.0" style="-fx-font-size: 30;" text="RadioButton" />
+      <RadioButton fx:id="option3" layoutX="767.0" layoutY="290.0" mnemonicParsing="false" onAction="#select3" prefHeight="30.0" prefWidth="252.0" style="-fx-font-size: 30;" text="RadioButton" />
+      <RadioButton fx:id="option2" layoutX="263.0" layoutY="407.0" mnemonicParsing="false" onAction="#select2" prefHeight="30.0" prefWidth="252.0" style="-fx-font-size: 30;" text="RadioButton" />
+      <RadioButton fx:id="option4" layoutX="767.0" layoutY="407.0" mnemonicParsing="false" onAction="#select4" prefHeight="30.0" prefWidth="252.0" style="-fx-font-size: 30;" text="RadioButton" />
+      <Button fx:id="exitButton" layoutX="1019.0" layoutY="45.0" mnemonicParsing="false" onAction="#azioneUscita" prefHeight="68.0" prefWidth="232.0" style="-fx-font-size: 54px;" text="Esci" />
    </children>
 </AnchorPane>

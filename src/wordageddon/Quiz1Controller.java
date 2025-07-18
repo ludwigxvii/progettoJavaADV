@@ -11,14 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.RadioButton;
 
 /**
  * FXML Controller class
  *
  * @author ludwi
  */
-public class Quiz_1Controller implements Initializable {
+public class Quiz1Controller implements Initializable {
 
     @FXML
     private Label testoDomanda;
@@ -29,9 +29,11 @@ public class Quiz_1Controller implements Initializable {
     @FXML
     private Label tempo;
     @FXML
-    private ToggleButton bottoneRisposta1;
+    private RadioButton option1;
     @FXML
-    private ToggleButton bottoneRisposta2;
+    private RadioButton option3;
+    @FXML
+    private Button exitButton;
 
     /**
      * Initializes the controller class.
@@ -46,11 +48,15 @@ public class Quiz_1Controller implements Initializable {
     }
 
     @FXML
-    private void selezione1(ActionEvent event) {
+    private void select1(ActionEvent event) {
     }
 
     @FXML
-    private void selezione2(ActionEvent event) {
+    private void select3(ActionEvent event) {
+    }
+
+    @FXML
+    private void azioneUscita(ActionEvent event) {
     }
     
 }
