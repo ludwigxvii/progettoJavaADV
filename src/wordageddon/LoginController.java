@@ -65,7 +65,7 @@ public class LoginController implements Initializable {
                 //QuizController ctrl = loader.getController();
          MenuController ctrl = loader.getController();
        
-         ctrl.setUser(stage,scene,"username","email",0,0);
+         ctrl.setUser(stage,scene,"admin","email",0,0);
         scene = new Scene(root);
                  stage.setScene(scene);
                  //ricorda di levare l'annotazione da qui sotto

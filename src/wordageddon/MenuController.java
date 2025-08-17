@@ -28,8 +28,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -76,16 +79,42 @@ public class MenuController implements Initializable {
     private ToggleButton itButton;
     @FXML
     private Button playButton;
+    @FXML
+    private Tab adminTab;
+    @FXML
+    private ToggleButton easyButton1;
+    @FXML
+    private ToggleButton normalButton1;
+    @FXML
+    private ToggleButton difficultbutton1;
+    @FXML
+    private ToggleButton engButton1;
+    @FXML
+    private ToggleButton itButton1;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private TextArea testoDaCaricare;
+    @FXML
+    private TextField nomeFilelabel;
+    @FXML
+    private TextField titololabel;
+    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        adminTab.setDisable(true);
+        adminTab.setText("");
         BooleanBinding buttons = (easyButton.selectedProperty().or(normalButton.selectedProperty()).or(difficultbutton.selectedProperty()))
                 .and(itButton.selectedProperty().or(engButton.selectedProperty())).not();
         playButton.disableProperty().bind(buttons);
-        
+        BooleanBinding buttons2 = (easyButton1.selectedProperty().or(normalButton1.selectedProperty()).or(difficultbutton1.selectedProperty()))
+                .and(itButton1.selectedProperty().or(engButton1.selectedProperty())).not().or(testoDaCaricare.textProperty().isEmpty())
+                .or(nomeFilelabel.textProperty().isEmpty()).or(titololabel.textProperty().isEmpty());
+        saveButton.disableProperty().bind(buttons2);
         this.listaClassifica=FXCollections.observableArrayList();
         /*try {
         try {
@@ -121,6 +150,10 @@ public class MenuController implements Initializable {
     }    
     public void setUser(Stage stage,Scene scene,String username,String email,int totalscore,int lastscore){
         this.utenteAttuale= new User(username,email,totalscore,lastscore);
+        if(utenteAttuale.getNome()=="admin"){
+        adminTab.setDisable(false);
+        adminTab.setText("Admin");
+        }
     bestScoreLabel.setText(Integer.toString(totalscore));
     lastScoreLabel.setText(Integer.toString(lastscore));
     namelabel.setText(username);
@@ -183,5 +216,41 @@ public class MenuController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void inserisciTesto(ActionEvent event) {
+        
+        
+    }
+
+    @FXML
+    private void easySelectadm(ActionEvent event) {
+        normalButton1.setSelected(false);
+        difficultbutton1.setSelected(false);
+        //this.diffState=diffState.FACILE;
+    }
+
+    @FXML
+    private void normalSelectadm(ActionEvent event) {
+        difficultbutton1.setSelected(false);
+        easyButton1.setSelected(false);
+        //this.diffState=diffState.FACILE;
+    }
+
+    @FXML
+    private void difficultSelectadm(ActionEvent event) {
+        normalButton1.setSelected(false);
+        easyButton1.setSelected(false);
+    }
+
+    @FXML
+    private void engSelectadm(ActionEvent event) {
+        itButton1.setSelected(false);
+    }
+
+    @FXML
+    private void itSelectadm(ActionEvent event) {
+        engButton1.setSelected(false);
     }
 }

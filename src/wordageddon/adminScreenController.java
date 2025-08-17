@@ -6,6 +6,7 @@ package wordageddon;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,13 +38,18 @@ public class adminScreenController implements Initializable {
     private TextArea testoDaCaricare;
     @FXML
     private TextField nomeFilelabel;
+    @FXML
+    private TextField titololabel;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        BooleanBinding buttons = (easyButton.selectedProperty().or(normalButton.selectedProperty()).or(difficultbutton.selectedProperty()))
+                .and(itButton.selectedProperty().or(engButton.selectedProperty())).not();
+        saveButton.disableProperty().bind(buttons);
     }    
 
     @FXML
@@ -67,7 +73,7 @@ public class adminScreenController implements Initializable {
     }
 
     @FXML
-    private void iniziaPartita(ActionEvent event) {
+    private void inserisciTesto(ActionEvent event) {
     }
     
 }
