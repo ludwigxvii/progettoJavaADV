@@ -86,12 +86,13 @@ public class GameController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }    
-    public void setUser(Stage stage,Scene scene,User user,DocumentAnalyzer analyzer,List<Question> questions,List<String> testi){
+    public void setUser(Stage stage,Scene scene,User user,DocumentAnalyzer analyzer,List<Question> questions,List<String> testi,String nometesto){
         this.utenteAttuale=user;
         this.stage=stage;
         this.scene=scene;
         this.domande=questions;
         this.analyzer=analyzer;
+        this.textName.setText(nometesto);
         StringBuilder content = new StringBuilder();
 for (String file : testi) {
     Path path = Paths.get("src/resources/texts/" + file);

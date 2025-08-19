@@ -222,15 +222,17 @@ public class MenuController implements Initializable {
 
     @FXML
     private void iniziaPartita(ActionEvent event) {
-        ArrayList<String> testi=new ArrayList<>();
+        ArrayList<TextInfo> testi=new ArrayList<>();
                 this.listatesti.stream().filter(s->{return Boolean.
-                        logicalAnd(s.getLang().equals(this.lState), s.getDiff().equals(this.diffState));}).forEach(testo->testi.add(testo.getFilename()+".txt"));
+                        logicalAnd(s.getLang().equals(this.lState), s.getDiff().equals(this.diffState));}).forEach(testo->testi.add(testo));
         ArrayList<String> testo_selezionato=new ArrayList<>();
         Random random = new Random();
-        testo_selezionato.add(testi.get(random.nextInt(testi.size())));
+        int indice_random=random.nextInt(testi.size());
+        String nomeTesto=testi.get(indice_random).getNome();
+        testo_selezionato.add(testi.get(indice_random).getFilename()+".txt");
         //testi.add("ita1.txt");
         testi.forEach(s->System.out.println(s+", "));
-        DocumentAnalyzer analyzer = new DocumentAnalyzer(testi,"ITALIANO");
+        DocumentAnalyzer analyzer = new DocumentAnalyzer(testo_selezionato,"ITALIANO");
         QuestionGenerator generator = new QuestionGenerator(analyzer);
         //analyzer.getGlobalFrequencies().entrySet().forEach((s)->System.out.println("keyset: "+s+"\n"));
         List<Question> generatedQuestions = generator.generateQuestions(10);
@@ -243,7 +245,7 @@ public class MenuController implements Initializable {
             GameController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setUser(stage,scene,this.utenteAttuale,analyzer,generatedQuestions,testo_selezionato);
+                 ctrl.setUser(stage,scene,this.utenteAttuale,analyzer,generatedQuestions,testo_selezionato,nomeTesto);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
