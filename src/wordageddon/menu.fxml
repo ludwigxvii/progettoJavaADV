@@ -153,7 +153,7 @@
                            </padding>
                         </ToolBar>
                         <Button fx:id="saveButton" layoutX="975.0" layoutY="350.0" mnemonicParsing="false" onAction="#inserisciTesto" prefHeight="136.0" prefWidth="263.0" style="-fx-font-size: 80;" text="Salva" />
-                        <TextArea fx:id="testoDaCaricare" layoutX="54.0" layoutY="104.0" prefHeight="415.0" prefWidth="861.0" />
+                        <TextArea fx:id="testoDaCaricare" layoutX="54.0" layoutY="104.0" prefHeight="415.0" prefWidth="861.0" style="-fx-font-size: 28;" />
                         <TextField fx:id="nomeFilelabel" layoutX="974.0" layoutY="228.0" prefHeight="85.0" prefWidth="266.0" promptText="Nome File" style="-fx-font-size: 50;" />
                         <TextField fx:id="titololabel" layoutX="974.0" layoutY="104.0" prefHeight="85.0" prefWidth="266.0" promptText="Titolo" style="-fx-font-size: 50;" />
                      </children>

@@ -4,7 +4,13 @@
  */
 package wordageddon;
 
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +60,10 @@ public class MenuController implements Initializable {
     ObservableList<User> listaClassifica;
     DifficultState diffState;
     LangState lState;
+    DifficultState newtextdiffState;
+    LangState newtextlState;
     User utenteAttuale;
+    ArrayList<TextInfo> listatesti = new ArrayList<>(); 
     @FXML
     private ToggleButton bestScoreLabel;
     @FXML
@@ -106,6 +116,22 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try (ObjectInputStream inputS = new ObjectInputStream(new FileInputStream("testi.dat"))) {
+            while(true){
+                TextInfo letto = (TextInfo) inputS.readObject();
+                if(letto==null)break;
+                this.listatesti.add(letto);
+            System.out.println("Testo letto: " + letto.getNome());
+            }
+             
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Fine della Lettura");
+            
+        }
+        System.out.print("Testi caricati:[");
+        this.listatesti.stream().forEach(s->System.out.print(s.getFilename()+", "));
+        System.out.print("]");
+           
         adminTab.setDisable(true);
         adminTab.setText("");
         BooleanBinding buttons = (easyButton.selectedProperty().or(normalButton.selectedProperty()).or(difficultbutton.selectedProperty()))
@@ -197,7 +223,13 @@ public class MenuController implements Initializable {
     @FXML
     private void iniziaPartita(ActionEvent event) {
         ArrayList<String> testi=new ArrayList<>();
-        testi.add("ita1.txt");
+                this.listatesti.stream().filter(s->{return Boolean.
+                        logicalAnd(s.getLang().equals(this.lState), s.getDiff().equals(this.diffState));}).forEach(testo->testi.add(testo.getFilename()+".txt"));
+        ArrayList<String> testo_selezionato=new ArrayList<>();
+        Random random = new Random();
+        testo_selezionato.add(testi.get(random.nextInt(testi.size())));
+        //testi.add("ita1.txt");
+        testi.forEach(s->System.out.println(s+", "));
         DocumentAnalyzer analyzer = new DocumentAnalyzer(testi,"ITALIANO");
         QuestionGenerator generator = new QuestionGenerator(analyzer);
         //analyzer.getGlobalFrequencies().entrySet().forEach((s)->System.out.println("keyset: "+s+"\n"));
@@ -211,7 +243,7 @@ public class MenuController implements Initializable {
             GameController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setUser(stage,scene,this.utenteAttuale,analyzer,generatedQuestions,testi);
+                 ctrl.setUser(stage,scene,this.utenteAttuale,analyzer,generatedQuestions,testo_selezionato);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
@@ -220,7 +252,31 @@ public class MenuController implements Initializable {
 
     @FXML
     private void inserisciTesto(ActionEvent event) {
-        
+        //public TextInfo(String nome, String filename, DifficultState diff, LangState lang, String filestopw) 
+        TextInfo nuovoTesto = new TextInfo(titololabel.getText(),nomeFilelabel.getText(),
+                this.newtextdiffState,this.newtextlState,testoDaCaricare.getText());
+        this.listatesti.add(nuovoTesto);
+        System.out.println("testo aggiunto: \n"+nuovoTesto.toString());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\resources\\texts\\"+nomeFilelabel.getText()+".txt"))) {
+            writer.write(testoDaCaricare.getText());
+            writer.newLine(); // Aggiunge un a capo
+            System.out.println("Testo archiviato");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (ObjectOutputStream outputS = new ObjectOutputStream(new FileOutputStream("testi.dat"))) {
+            int n=0;
+            this.listatesti.stream().forEach(testo->{
+                try {
+                    outputS.writeObject(testo);
+                } catch (IOException ex) {
+                    Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            System.out.println("Info Testo Aggiunte");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }
 
@@ -228,29 +284,32 @@ public class MenuController implements Initializable {
     private void easySelectadm(ActionEvent event) {
         normalButton1.setSelected(false);
         difficultbutton1.setSelected(false);
-        //this.diffState=diffState.FACILE;
+        this.newtextdiffState=diffState.FACILE;
     }
 
     @FXML
     private void normalSelectadm(ActionEvent event) {
         difficultbutton1.setSelected(false);
         easyButton1.setSelected(false);
-        //this.diffState=diffState.FACILE;
+        this.newtextdiffState=diffState.NORMALE;
     }
 
     @FXML
     private void difficultSelectadm(ActionEvent event) {
         normalButton1.setSelected(false);
         easyButton1.setSelected(false);
+        this.newtextdiffState=diffState.DIFFICILE;
     }
 
     @FXML
     private void engSelectadm(ActionEvent event) {
         itButton1.setSelected(false);
+        this.newtextlState=LangState.INGLESE;
     }
 
     @FXML
     private void itSelectadm(ActionEvent event) {
         engButton1.setSelected(false);
+        this.newtextlState=LangState.ITALIANO;
     }
 }

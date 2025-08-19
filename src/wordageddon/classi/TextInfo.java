@@ -64,6 +64,11 @@ public class TextInfo implements Serializable {
     public void setFilestopw(String filestopw) {
         this.filestopw = filestopw;
     }
+
+    @Override
+    public String toString() {
+        return "TextInfo{" + "nome=" + nome + ", filename=" + filename + ", diff=" + diff + ", lang=" + lang + ", filestopw=" + filestopw + '}';
+    }
     
     
     
