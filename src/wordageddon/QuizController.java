@@ -182,6 +182,9 @@ this.timeline.stop();
 
     @FXML
     private void azioneUscita(ActionEvent event) {
+        for(int i=0;i<10;i++){
+            System.out.println(this.domande.get(i));
+        }
     }
 }
 
