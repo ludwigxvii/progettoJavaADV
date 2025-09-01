@@ -1,9 +1,13 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Question {
     private String text;
@@ -51,9 +55,18 @@ public class Question {
     }
 
     @Override
-    public String toString() {
-        return "Question{" + "text=" + text + ", options=" + options + ", correctIndex=" + correctIndex + ", givenIndex=" + givenIndex + '}';
-    }
+    
+public String toString() {
+    return "Question{" +
+           "text='" + text + '\'' +
+           ", options=" + options +
+           ", correctIndex=" + correctIndex +
+           ", givenIndex=" + givenIndex +
+           ", correctValue='" + correctValue + '\'' +
+           ", givenValue='" + givenValue + '\'' +
+           '}';
+}
+
     
        public String toJson() {
         StringBuilder json = new StringBuilder("{");
@@ -73,41 +86,92 @@ public class Question {
         json.append("}");
         return json.toString();
     }
-       
-    public static Question fromJson(String json) {
-        Question q = new Question();
-        Map<String, String> map = parseJson(json);
-
-        q.text = map.get("text");
-        q.correctValue = map.get("correctValue");
-        q.givenValue = map.get("givenValue");
-        q.correctIndex = Integer.parseInt(map.get("correctIndex"));
-        q.givenIndex = Integer.parseInt(map.get("givenIndex"));
-
-        String optionsRaw = map.get("options");
-        List<String> opts = new ArrayList<>();
-        if (optionsRaw != null && optionsRaw.length() > 2) {
-            String[] items = optionsRaw.substring(1, optionsRaw.length() - 1).split(",");
-            for (String item : items) {
-                opts.add(item.trim().replaceAll("^\"|\"$", ""));
-            }
-        }
-        q.options = opts;
-
-        return q;
+       private static String unescapeJsonString(String s) {
+    if (s == null) return null;
+    s = s.trim();
+    if (s.startsWith("\"") && s.endsWith("\"")) {
+        s = s.substring(1, s.length() - 1);
     }
+    s = s.replace("\\\"", "\"");
+    s = s.replace("\\\\", "\\");
+    s = s.replace("\\n", "\n");
+    s = s.replace("\\t", "\t");
+    return s;
+}
+public static Question fromJson(String json) {
+    Question q = new Question();
+    Map<String, String> map = parseJson(json);
+
+    q.text = unescapeJsonString(map.get("text"));
+
+
+    // Parsing delle opzioni
+    q.options = extractOptions(json);
+
+    // Parsing degli indici
+    q.correctIndex = parseSafeInt(map.get("correctIndex"), -1);
+    q.givenIndex = parseSafeInt(map.get("givenIndex"), -1);
+
+    // Parsing dei valori (che possono essere "null" come stringa)
+    q.correctValue = map.get("correctValue");
+    q.givenValue = map.get("givenValue");
+
+    return q;
+}
+private static List<String> extractOptions(String json) {
+    List<String> options = new ArrayList<>();
+    Pattern pattern = Pattern.compile("\"options\"\\s*:\\s*\\[(.*?)\\]");
+    Matcher matcher = pattern.matcher(json);
+    if (matcher.find()) {
+        String arrayContent = matcher.group(1);
+        String[] items = arrayContent.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        for (String item : items) {
+            options.add(item.trim().replaceAll("^\"|\"$", ""));
+        }
+    }
+    return options;
+}
+
+
+// Metodo di supporto per parsing sicuro
+private static int parseSafeInt(String value, int defaultValue) {
+    if (value == null || value.equals("null") || value.isEmpty()) {
+        return defaultValue;
+    }
+    try {
+        return Integer.parseInt(value.replaceAll("\"", ""));
+    } catch (NumberFormatException e) {
+        return defaultValue;
+    }
+}
+
     
-       private static Map<String, String> parseJson(String json) {
-        Map<String, String> map = new HashMap<>();
-        json = json.trim().substring(1, json.length() - 1);
-        String[] pairs = json.split(",(?=(?:[^\"]\"[^\"]\")[^\"]$)");
-            // rimuove le  { }, spezza e crea una coppia di attributi e valori
-        for (String pair : pairs) {
-            String[] kv = pair.split(":", 2);
-            String key = kv[0].trim().replaceAll("^\"|\"$", "");
-            String value = kv[1].trim();
-            map.put(key, value);
-        }
-        return map;
+private static Map<String, String> parseJson(String json) {
+    Map<String, String> map = new HashMap<>();
+
+    // Rimuove le graffe iniziali e finali
+    json = json.trim();
+    if (json.startsWith("{") && json.endsWith("}")) {
+        json = json.substring(1, json.length() - 1);
     }
+
+    // Regex per trovare tutte le coppie chiave:valore
+    Pattern pattern = Pattern.compile("\"(.*?)\"\\s*:\\s*(\".*?\"|\\[.*?\\]|[^,]+)");
+    Matcher matcher = pattern.matcher(json);
+
+    while (matcher.find()) {
+        String key = matcher.group(1);
+        String value = matcher.group(2).trim();
+
+        // Rimuove virgolette esterne se presenti
+        if (value.startsWith("\"") && value.endsWith("\"")) {
+            value = value.substring(1, value.length() - 1);
+        }
+
+        map.put(key, value);
+    }
+
+    return map;
+}
+
 }

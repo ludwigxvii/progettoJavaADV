@@ -13,10 +13,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -55,6 +57,7 @@ import wordageddon.classi.*;
  * @author ludwi
  */
 public class MenuController implements Initializable {
+    ResultSet resultsessione;
     Scene scene;
     Stage stage;
     ObservableList<User> listaClassifica;
@@ -109,6 +112,8 @@ public class MenuController implements Initializable {
     private TextField nomeFilelabel;
     @FXML
     private TextField titololabel;
+    @FXML
+    private Button continuaButton1;
     
 
     /**
@@ -116,6 +121,7 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        continuaButton1.setDisable(true);
         try (ObjectInputStream inputS = new ObjectInputStream(new FileInputStream("testi.dat"))) {
             while(true){
                 TextInfo letto = (TextInfo) inputS.readObject();
@@ -173,6 +179,31 @@ public class MenuController implements Initializable {
         Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         
+         try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Errore Driver");
+        }
+        try {
+            Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
+        
+        try (PreparedStatement stmt = connessione.prepareStatement("SELECT username, domande, counter, \"timestamp\"\n" +
+"FROM public.sessions WHERE username='username'")) {
+        Boolean positive = stmt.execute();
+        if(positive){this.resultsessione = stmt.getResultSet();
+        if (resultsessione.next()) {
+                // Una riga trovata
+                continuaButton1.setDisable(false);
+            }
+        }
+            stmt.close();
+        
+        }
+        } catch (SQLException ex) {
+            System.err.println("Errore Scrittura");
+                        Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }    
     public void setUser(Stage stage,Scene scene,String username,String email,int totalscore,int lastscore){
         this.utenteAttuale= new User(username,email,totalscore,lastscore);
@@ -313,5 +344,34 @@ public class MenuController implements Initializable {
     private void itSelectadm(ActionEvent event) {
         engButton1.setSelected(false);
         this.newtextlState=LangState.ITALIANO;
+    }
+
+    @FXML
+    private void continuaPartita(ActionEvent event) {
+        try {
+            String listadom [];
+            listadom=this.resultsessione.getString("domande").split("\n");
+            ArrayList<Question> domandeSQL = new ArrayList<>();
+            for(int i=0;i<10;i++){
+                //System.out.println(listadom[i]);
+                domandeSQL.add(Question.fromJson(listadom[i]));
+            }
+            domandeSQL.forEach(s->{System.out.println(s.toJson());});
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz.fxml"));
+         Parent root;
+        try {
+            root = (Parent) loader.load();
+            QuizController ctrl = loader.getController();
+                scene = new Scene(root);
+                 stage.setScene(scene);
+                 ctrl.setDomanda(this.resultsessione.getInt("counter"),stage,scene,domandeSQL);
+        stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 }

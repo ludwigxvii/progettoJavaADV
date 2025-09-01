@@ -43,7 +43,7 @@ public class QuestionGenerator {
         options.add(correctIndex, String.valueOf(correctFreq));
 
         Question q = new Question(
-            "Quante volte appare la parola \"" + chosen + "\"?",
+            "Quante volte appare la parola " + chosen + "?",
             options,
             correctIndex
         );

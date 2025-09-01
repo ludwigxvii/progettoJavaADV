@@ -64,12 +64,13 @@
                               <Insets left="40.0" />
                            </padding>
                         </ToolBar>
-                        <Button fx:id="playButton" layoutX="852.0" layoutY="269.0" mnemonicParsing="false" onAction="#iniziaPartita" prefHeight="163.0" prefWidth="263.0" style="-fx-font-size: 80;" text="Gioca" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="749.0" layoutY="159.0" prefHeight="97.0" prefWidth="469.0" style="-fx-font-size: 60px;" text="utente" textFill="WHITE">
+                        <Button fx:id="playButton" layoutX="852.0" layoutY="217.0" mnemonicParsing="false" onAction="#iniziaPartita" prefHeight="156.0" prefWidth="263.0" style="-fx-font-size: 80;" text="Gioca" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="749.0" layoutY="71.0" prefHeight="72.0" prefWidth="469.0" style="-fx-font-size: 60px;" text="utente" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="61.0" />
                            </font>
                         </Label>
+                        <Button fx:id="continuaButton1" layoutX="852.0" layoutY="396.0" mnemonicParsing="false" onAction="#continuaPartita" prefHeight="156.0" prefWidth="263.0" style="-fx-font-size: 60;" text="Continua" />
                      </children></AnchorPane>
             </content>
           </Tab>

@@ -6,6 +6,12 @@ package wordageddon;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -84,6 +90,39 @@ public class QuizController implements Initializable {
                 
               this.timeline.stop();
               System.out.println("TEMPO SCADUTO");
+              if(this.numeroDomanda==10){
+        
+FXMLLoader loader = new FXMLLoader(getClass().getResource("esitoSchermata.fxml"));
+         Parent root;
+        try {
+            root = (Parent) loader.load();
+            esitoController ctrl = loader.getController();
+                scene = new Scene(root);
+                 stage.setScene(scene);
+                 ctrl.setRisultati(domande);
+                 //ctrl.setDomanda(this.numeroDomanda,"Tipo1","Pesce",stage,scene);
+        stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } else {
+            this.domande.get(numeroDomanda-1).setGivenIndex(this.risposta_data);
+        System.out.println(this.domande.get(numeroDomanda-1).toString());
+//System.out.println("Invio "+this.testoRisposta.getText());
+FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz.fxml"));
+this.timeline.stop();
+         Parent root;
+        try {
+            root = (Parent) loader.load();
+            QuizController ctrl = loader.getController();
+                scene = new Scene(root);
+                 stage.setScene(scene);
+                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande);
+        stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
                 };
                 
                 this.tempo.setText(String.format("%02d", secondsDisplay));
@@ -123,7 +162,7 @@ this.timeline.stop();
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.analyzer,this.domande);
+                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,7 +170,7 @@ this.timeline.stop();
     }
     }
    
-    public void setDomanda(int numero,Stage stage,Scene scene,DocumentAnalyzer analyzer,List<Question> questions){
+    public void setDomanda(int numero,Stage stage,Scene scene,List<Question> questions){
         this.tempo.setText("60");
         this.scene=scene;
         this.stage=stage;
@@ -144,7 +183,7 @@ this.timeline.stop();
         this.tipoDomanda=tipoDomanda;
         this.labelDomande.setText(this.numeroDomanda+"/10");
         this.domande=questions;
-        this.analyzer=analyzer;
+        //this.analyzer=analyzer;
         //this.parolaDomanda.setText(parola);
 }
 
@@ -161,7 +200,7 @@ this.timeline.stop();
         option1.setSelected(false);
         option2.setSelected(false);
         option4.setSelected(false);
-        risposta_data=1;
+        risposta_data=2;
     }
 
     @FXML
@@ -169,7 +208,7 @@ this.timeline.stop();
         option3.setSelected(false);
         option1.setSelected(false);
         option4.setSelected(false);
-        risposta_data=2;
+        risposta_data=1;
     }
 
     @FXML
@@ -182,8 +221,36 @@ this.timeline.stop();
 
     @FXML
     private void azioneUscita(ActionEvent event) {
+        StringBuffer stringa_domande= new StringBuffer();
+        
         for(int i=0;i<10;i++){
-            System.out.println(this.domande.get(i));
+            stringa_domande.append(this.domande.get(i).toJson());
+            stringa_domande.append("\n");
+        }
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Errore Driver");
+        }
+        try {
+            Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
+            PreparedStatement stmt = connessione.prepareStatement("INSERT INTO public.sessions(\n" +
+"	username, domande, counter, \"timestamp\")\n" +
+"	VALUES (?, ?, ?, ?);");
+            stmt.setString(1, "username");
+            stmt.setString(2, stringa_domande.toString());
+            stmt.setInt(3, (this.numeroDomanda-1));
+            Timestamp stamp = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(stamp.getTime());
+            stmt.setDate(4, date);
+            stmt.execute();
+            stmt.close();
+        
+        
+        } catch (SQLException ex) {
+            System.err.println("Errore Scrittura");
+                        Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 }
