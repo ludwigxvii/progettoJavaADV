@@ -114,6 +114,8 @@ public class MenuController implements Initializable {
     private TextField titololabel;
     @FXML
     private Button continuaButton1;
+    @FXML
+    private Label utentenameLabel;
     
 
     /**
@@ -214,6 +216,7 @@ public class MenuController implements Initializable {
     bestScoreLabel.setText(Integer.toString(totalscore));
     lastScoreLabel.setText(Integer.toString(lastscore));
     namelabel.setText(username);
+    utentenameLabel.setText(username);
     this.stage=stage;
     this.scene=scene;
     }
@@ -280,6 +283,25 @@ public class MenuController implements Initializable {
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Errore Driver");
+        }
+        try {
+            Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
+        
+        try (PreparedStatement stmt = connessione.prepareStatement("DELETE FROM public.sessions\n" +
+"	WHERE username=username;")) {
+        stmt.execute();
+            stmt.close();
+        
+        }
+        } catch (SQLException ex) {
+            System.err.println("Errore Scrittura");
+                        Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 
@@ -364,7 +386,7 @@ public class MenuController implements Initializable {
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.resultsessione.getInt("counter"),stage,scene,domandeSQL);
+                 ctrl.setDomanda(this.resultsessione.getInt("counter"),stage,scene,domandeSQL,this.utenteAttuale);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);

@@ -10,20 +10,20 @@
 
 <AnchorPane id="baseschermata" prefHeight="800.0" prefWidth="1280.0" stylesheets="@stile_gioco.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wordageddon.RegisterController">
    <children>
-      <Label fx:id="testoRegistrazione" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="128.0" prefHeight="81.0" prefWidth="775.0" style="-fx-font-size: 40;" text="Registrati per giocare" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-      <TextField fx:id="testoUsername" alignment="CENTER" layoutX="544.0" layoutY="217.0" prefHeight="81.0" prefWidth="478.0" promptText="Max 20 caratteri" style="-fx-background-radius: 30px; -fx-font-size: 50px;" />
-      <Button fx:id="inviaReg" layoutX="525.0" layoutY="657.0" mnemonicParsing="false" onAction="#azioneInvio" prefHeight="109.0" prefWidth="232.0" style="-fx-font-size: 50px;" text="Registrati" />
+      <Label fx:id="testoRegistrazione" alignment="CENTER" contentDisplay="CENTER" layoutX="255.0" layoutY="162.0" prefHeight="65.0" prefWidth="775.0" style="-fx-font-size: 40;" text="Registrati per giocare" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <TextField fx:id="testoUsername" alignment="CENTER" layoutX="544.0" layoutY="236.0" prefHeight="62.0" prefWidth="478.0" promptText="Max 20 caratteri" style="-fx-background-radius: 30px; -fx-font-size: 40px;" />
+      <Button fx:id="inviaReg" layoutX="512.0" layoutY="659.0" mnemonicParsing="false" onAction="#azioneInvio" prefHeight="97.0" prefWidth="260.0" style="-fx-font-size: 50px;" text="Registrati" />
       <Label fx:id="username" alignment="CENTER" contentDisplay="CENTER" layoutX="244.0" layoutY="217.0" prefHeight="97.0" prefWidth="280.0" style="-fx-font-size: 64;" styleClass="parola" text="Username" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
       <Label fx:id="password" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="424.0" prefHeight="97.0" prefWidth="260.0" style="-fx-font-size: 64;" styleClass="parola" text="Password" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
-      <TextField fx:id="testoMail" alignment="CENTER" layoutX="544.0" layoutY="321.0" prefHeight="81.0" prefWidth="478.0" promptText="example@domain.com" style="-fx-background-radius: 30px; -fx-font-size: 50px;" />
-      <ImageView fitHeight="142.0" fitWidth="571.0" layoutX="430.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="testoMail" alignment="CENTER" layoutX="544.0" layoutY="331.0" prefHeight="72.0" prefWidth="478.0" promptText="example@domain.com" style="-fx-background-radius: 30px; -fx-font-size: 40px;" />
+      <ImageView fitHeight="178.0" fitWidth="564.0" layoutX="379.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@immagini/wordageddon_logo.png" />
          </image>
       </ImageView>
       <Label fx:id="password1" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="318.0" prefHeight="97.0" prefWidth="260.0" style="-fx-font-size: 64;" styleClass="parola" text="E-Mail" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
-      <Label fx:id="password2" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="534.0" prefHeight="97.0" prefWidth="260.0" style="-fx-font-size: 64;" styleClass="parola" text="Conferma" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
-      <PasswordField fx:id="testoPass" alignment="CENTER" layoutX="544.0" layoutY="428.0" prefHeight="90.0" prefWidth="478.0" promptText="Max 20 caratteri" style="-fx-font-size: 50px;" />
-      <PasswordField fx:id="testoPass2" alignment="CENTER" layoutX="544.0" layoutY="537.0" prefHeight="90.0" prefWidth="478.0" promptText="Max 20 caratteri" style="-fx-font-size: 50px;" />
+      <Label fx:id="password2" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="528.0" prefHeight="97.0" prefWidth="260.0" style="-fx-font-size: 64;" styleClass="parola" text="Conferma" textAlignment="CENTER" textFill="#a96ef1" wrapText="true" />
+      <PasswordField fx:id="testoPass" alignment="CENTER" layoutX="544.0" layoutY="437.0" prefHeight="72.0" prefWidth="478.0" promptText="Max 20 caratteri" style="-fx-font-size: 40px;" />
+      <PasswordField fx:id="testoPass2" alignment="CENTER" layoutX="544.0" layoutY="540.0" prefHeight="72.0" prefWidth="478.0" promptText="Max 20 caratteri" style="-fx-font-size: 40px;" />
    </children>
 </AnchorPane>

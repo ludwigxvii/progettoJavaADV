@@ -11,16 +11,16 @@
 <AnchorPane id="baseschermata" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@stile_gioco.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wordageddon.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <ImageView fitHeight="303.0" fitWidth="886.0" layoutX="134.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="401.3078918457031" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="100.0">
+      <ImageView fitHeight="356.0" fitWidth="1019.0" layoutX="131.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="383.4703369140625" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="73.0">
          <image>
             <Image url="@immagini/wordageddon_logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="loginButton" layoutX="520.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="152.0" prefWidth="241.0" style="-fx-font-size: 64;" text="Login" AnchorPane.leftAnchor="520.0" AnchorPane.rightAnchor="519.0">
+      <Button fx:id="loginButton" layoutX="504.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="117.0" prefWidth="272.0" style="-fx-font-size: 64;" text="Login" AnchorPane.leftAnchor="504.0" AnchorPane.rightAnchor="504.0">
          <font>
             <Font size="55.0" />
          </font></Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="602.0" lineSpacing="4.0" onMouseClicked="#registerAction" prefHeight="52.0" prefWidth="129.0" style="-fx-font-size: 30px;" text="Registrati " textFill="#ebccff">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="609.0" layoutY="547.0" lineSpacing="4.0" onMouseClicked="#registerAction" prefHeight="76.0" prefWidth="185.0" style="-fx-font-size: 40px;" text="Registrati " textFill="#ebccff">
          <font>
             <Font size="36.0" />
          </font>
@@ -28,7 +28,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="520.0" layoutY="602.0" lineSpacing="4.0" prefHeight="52.0" prefWidth="121.0" style="-fx-font-size: 30px;" text="Oppure" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="497.0" layoutY="559.0" lineSpacing="4.0" prefHeight="52.0" prefWidth="121.0" style="-fx-font-size: 40px;" text="Oppure" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>

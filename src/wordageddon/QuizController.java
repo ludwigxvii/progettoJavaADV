@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Question;
 import service.DocumentAnalyzer;
+import wordageddon.classi.User;
 
 /**
  * FXML Controller class
@@ -68,6 +69,7 @@ public class QuizController implements Initializable {
     private RadioButton option4;
     @FXML
     private Button exitButton;
+    private User user;
 
     /**
      * Initializes the controller class.
@@ -99,7 +101,7 @@ FXMLLoader loader = new FXMLLoader(getClass().getResource("esitoSchermata.fxml")
             esitoController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setRisultati(domande);
+                 ctrl.setRisultati(domande,this.user);
                  //ctrl.setDomanda(this.numeroDomanda,"Tipo1","Pesce",stage,scene);
         stage.show();
         } catch (IOException ex) {
@@ -117,7 +119,7 @@ this.timeline.stop();
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande);
+                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande,this.user);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,7 +146,7 @@ FXMLLoader loader = new FXMLLoader(getClass().getResource("esitoSchermata.fxml")
             esitoController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setRisultati(domande);
+                 ctrl.setRisultati(domande,this.user);
                  //ctrl.setDomanda(this.numeroDomanda,"Tipo1","Pesce",stage,scene);
         stage.show();
         } catch (IOException ex) {
@@ -162,7 +164,7 @@ this.timeline.stop();
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande);
+                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande,this.user);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,7 +172,8 @@ this.timeline.stop();
     }
     }
    
-    public void setDomanda(int numero,Stage stage,Scene scene,List<Question> questions){
+    public void setDomanda(int numero,Stage stage,Scene scene,List<Question> questions,User user){
+        this.user=user;
         this.tempo.setText("60");
         this.scene=scene;
         this.stage=stage;
