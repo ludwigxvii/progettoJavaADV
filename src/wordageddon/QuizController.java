@@ -70,7 +70,7 @@ public class QuizController implements Initializable {
     @FXML
     private Button exitButton;
     private User user;
-
+    private int sessionScore;
     /**
      * Initializes the controller class.
      */
@@ -101,7 +101,7 @@ FXMLLoader loader = new FXMLLoader(getClass().getResource("esitoSchermata.fxml")
             esitoController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setRisultati(domande,this.user);
+                 ctrl.setRisultati(domande,this.user,this.stage,this.scene);
                  //ctrl.setDomanda(this.numeroDomanda,"Tipo1","Pesce",stage,scene);
         stage.show();
         } catch (IOException ex) {
@@ -119,7 +119,7 @@ this.timeline.stop();
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande,this.user);
+                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande,this.user,this.sessionScore);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
@@ -137,6 +137,12 @@ this.timeline.stop();
 
     @FXML
     private void azioneInvio(ActionEvent event) {
+        // Verifica correttezza risposta e aggiorna punteggio
+            Question domandaCorrente = this.domande.get(numeroDomanda - 1);
+            if (domandaCorrente.getCorrectIndex() == this.risposta_data) {
+                sessionScore += 10; // assegna 10 punti per risposta corretta
+            }
+
         if(this.numeroDomanda==10){
         
 FXMLLoader loader = new FXMLLoader(getClass().getResource("esitoSchermata.fxml"));
@@ -146,7 +152,7 @@ FXMLLoader loader = new FXMLLoader(getClass().getResource("esitoSchermata.fxml")
             esitoController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setRisultati(domande,this.user);
+                 ctrl.setRisultati(domande,this.user,this.stage,this.scene);
                  //ctrl.setDomanda(this.numeroDomanda,"Tipo1","Pesce",stage,scene);
         stage.show();
         } catch (IOException ex) {
@@ -164,7 +170,7 @@ this.timeline.stop();
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande,this.user);
+                 ctrl.setDomanda(this.numeroDomanda,stage,scene,this.domande,this.user,this.sessionScore);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,7 +178,9 @@ this.timeline.stop();
     }
     }
    
-    public void setDomanda(int numero,Stage stage,Scene scene,List<Question> questions,User user){
+    public void setDomanda(int numero,Stage stage,Scene scene,List<Question> questions,User user, int sessionScore){
+        this.sessionScore=sessionScore;
+        System.out.println(sessionScore);
         this.user=user;
         this.tempo.setText("60");
         this.scene=scene;
@@ -238,14 +246,15 @@ this.timeline.stop();
         try {
             Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
             PreparedStatement stmt = connessione.prepareStatement("INSERT INTO public.sessions(\n" +
-"	username, domande, counter, \"timestamp\")\n" +
-"	VALUES (?, ?, ?, ?);");
+"	username, domande, counter, score, \"timestamp\")\n" +
+"	VALUES (?, ?, ?, ?, ?);");
             stmt.setString(1, "username");
             stmt.setString(2, stringa_domande.toString());
             stmt.setInt(3, (this.numeroDomanda-1));
+            stmt.setInt(4, (this.sessionScore));
             Timestamp stamp = new Timestamp(System.currentTimeMillis());
             Date date = new Date(stamp.getTime());
-            stmt.setDate(4, date);
+            stmt.setDate(5, date);
             stmt.execute();
             stmt.close();
         
@@ -255,6 +264,23 @@ this.timeline.stop();
                         Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+         Parent root;
+            try {
+                root = (Parent) loader.load();
+                //QuizController ctrl = loader.getController();
+         MenuController ctrl = loader.getController();
+       
+         ctrl.setUser(stage,scene,this.user.getNome(),this.user.getEmail(),0,0);
+        scene = new Scene(root);
+                 stage.setScene(scene);
+                 //ricorda di levare l'annotazione da qui sotto
+        //stmt.close();
+                 stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 }
 

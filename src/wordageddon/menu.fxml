@@ -118,12 +118,12 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="277.0" prefWidth="357.0" style="-fx-background-color: rgb(158, 74, 255);">
                      <children>
-                        <Label layoutX="63.0" layoutY="14.0" prefHeight="77.0" prefWidth="469.0" style="-fx-font-size: 55px;" text="Inserisci il testo" textFill="WHITE">
+                        <Label layoutX="69.0" prefHeight="77.0" prefWidth="469.0" style="-fx-font-size: 55px;" text="Inserisci il testo" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="55.0" />
                            </font>
                         </Label>
-                        <ToolBar layoutX="648.0" layoutY="542.0" prefHeight="144.0" prefWidth="598.0">
+                        <ToolBar layoutX="509.0" layoutY="542.0" prefHeight="144.0" prefWidth="598.0">
                            <items>
                               <ToggleButton fx:id="easyButton1" mnemonicParsing="false" onAction="#easySelectadm" prefHeight="97.0" prefWidth="156.0" style="-fx-font-size: 40;" text="Facile" />
                               <ToggleButton fx:id="normalButton1" mnemonicParsing="false" onAction="#normalSelectadm" prefHeight="94.0" prefWidth="156.0" style="-fx-font-size: 40;" text="Normale" translateX="20.0" />
@@ -158,10 +158,11 @@
                               <Insets left="40.0" />
                            </padding>
                         </ToolBar>
-                        <Button fx:id="saveButton" layoutX="975.0" layoutY="350.0" mnemonicParsing="false" onAction="#inserisciTesto" prefHeight="136.0" prefWidth="263.0" style="-fx-font-size: 80;" text="Salva" />
-                        <TextArea fx:id="testoDaCaricare" layoutX="54.0" layoutY="89.0" prefHeight="430.0" prefWidth="861.0" style="-fx-font-size: 28;" />
-                        <TextField fx:id="nomeFilelabel" layoutX="974.0" layoutY="214.0" prefHeight="85.0" prefWidth="266.0" promptText="Nome File" style="-fx-font-size: 50;" />
-                        <TextField fx:id="titololabel" layoutX="974.0" layoutY="89.0" prefHeight="85.0" prefWidth="266.0" promptText="Titolo" style="-fx-font-size: 50;" />
+                        <Button fx:id="saveButton" layoutX="976.0" layoutY="390.0" mnemonicParsing="false" onAction="#inserisciTesto" prefHeight="116.0" prefWidth="263.0" style="-fx-font-size: 80;" text="Salva" />
+                        <TextArea fx:id="testoDaCaricare" layoutX="63.0" layoutY="76.0" prefHeight="430.0" prefWidth="866.0" style="-fx-font-size: 28;" />
+                        <TextField fx:id="nomeFilelabel" layoutX="974.0" layoutY="139.0" prefHeight="85.0" prefWidth="266.0" promptText="Nome File" style="-fx-font-size: 50;" />
+                        <TextField fx:id="titololabel" layoutX="975.0" layoutY="39.0" prefHeight="85.0" prefWidth="266.0" promptText="Titolo" style="-fx-font-size: 50;" />
+                        <Button fx:id="caricaFile" layoutX="976.0" layoutY="250.0" mnemonicParsing="false" onAction="#inserisciTesto" prefHeight="116.0" prefWidth="263.0" style="-fx-font-size: 80;" text="Carica" />
                      </children>
                   </AnchorPane>
                </content>

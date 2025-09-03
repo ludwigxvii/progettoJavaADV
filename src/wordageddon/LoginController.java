@@ -57,7 +57,7 @@ public class LoginController implements Initializable {
     @FXML
     private void azioneInvio(ActionEvent event) {
         
-        
+        // CANCELLATE QUESTA FINO A
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
          Parent root;
             try {
@@ -74,8 +74,11 @@ public class LoginController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            //FINO A QUI
         
-        
+            //LEVATE IL COMMENTO DA QUESTA
+           
         /*try {
         Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException ex) {

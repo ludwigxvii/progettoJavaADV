@@ -74,7 +74,7 @@ public class GameController implements Initializable {
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(0,stage,scene,this.domande,this.utenteAttuale);
+                 ctrl.setDomanda(0,stage,scene,this.domande,this.utenteAttuale,0);
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);

@@ -150,6 +150,10 @@ public class MenuController implements Initializable {
                 .or(nomeFilelabel.textProperty().isEmpty()).or(titololabel.textProperty().isEmpty());
         saveButton.disableProperty().bind(buttons2);
         this.listaClassifica=FXCollections.observableArrayList();
+        
+        //DECOMMENTARE PER LA CLASSIFICA
+        
+        
         /*try {
         try {
         Class.forName("org.postgresql.Driver");
@@ -189,7 +193,7 @@ public class MenuController implements Initializable {
         try {
             Connection connessione = DriverManager.getConnection("jdbc:postgresql://localhost:5432/wordageddon", "javaus", "jv2025" );
         
-        try (PreparedStatement stmt = connessione.prepareStatement("SELECT username, domande, counter, \"timestamp\"\n" +
+        try (PreparedStatement stmt = connessione.prepareStatement("SELECT username, domande, counter, score, \"timestamp\"\n" +
 "FROM public.sessions WHERE username='username'")) {
         Boolean positive = stmt.execute();
         if(positive){this.resultsessione = stmt.getResultSet();
@@ -386,7 +390,7 @@ public class MenuController implements Initializable {
             QuizController ctrl = loader.getController();
                 scene = new Scene(root);
                  stage.setScene(scene);
-                 ctrl.setDomanda(this.resultsessione.getInt("counter"),stage,scene,domandeSQL,this.utenteAttuale);
+                 ctrl.setDomanda(this.resultsessione.getInt("counter"),stage,scene,domandeSQL,this.utenteAttuale,this.resultsessione.getInt("score"));
         stage.show();
         } catch (IOException ex) {
             Logger.getLogger(QuizController.class.getName()).log(Level.SEVERE, null, ex);
